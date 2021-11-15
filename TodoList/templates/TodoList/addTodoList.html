@@ -1,0 +1,26 @@
+{% extends 'TodoList/base.html' %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 sub_title">
+            Create TodoList
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+           <form action="{% url 'TodoList:createTodoList' %}" method='POST'>
+                {% csrf_token %}
+                {{form|crispy}}
+                <p class="required_fields">* fields are required</p>
+                <input type="submit"  class="btn btn-success" value="Submit">
+                <a class="btn btn-danger" href="{% url 'TodoList:index' %}">Cancel</a>
+            </form> 
+        </div>
+    </div>
+</div>
+
+{% endblock %}

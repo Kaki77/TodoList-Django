@@ -1,0 +1,49 @@
+
+.sub_title
+{
+    font-size: 150%;
+    font-weight: bold;
+    background-color: black;
+    color:white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+table
+{
+    padding:0;
+}
+
+thead
+{
+    background-color: rgb(141, 140, 140);
+}
+
+thead>:not(:first-child)
+{
+    border-left:1px solid black;
+}
+
+.table>:not(:first-child)
+{
+    border:none;
+}
+
+tr:nth-child(even)
+{
+    background-color: rgba(175, 174, 174, 0.486);
+}
+
+td
+{
+    border: none;
+    text-overflow:ellipsis ;
+}
+
+.required_fields
+{
+    font-style: italic;
+    font-size: 80%;
+}

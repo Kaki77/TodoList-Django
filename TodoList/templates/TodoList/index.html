@@ -1,0 +1,44 @@
+{% extends 'TodoList/base.html' %}
+
+{% block content %}
+<div class="container">
+    {% if lists %}
+    <div class="row">
+        <table class="table">
+            <thead>
+                <th>TodoList Name</th>
+                <th>Published Date</th>
+                <th>Last Updated Date</th>
+                <th></th><th></th><th></th><th></th>
+            </thead>
+            <tbody>
+                {% for list in lists %}
+                    <tr>
+                        <td>{{list.todolist.name}}</td>
+                        <td>{{list.todolist.pub_date}}</td>
+                        <td>{{list.todolist.update_date}}</td>
+                        <td><a class="btn btn-success" href="{% url 'TodoList:readTodoList' list.todolist.id %}">Check TodoItems</a></td>
+                        <td><a class="btn btn-primary" href="{% url 'TodoList:updateTodoList' list.todolist.id %}">Edit</a></td>
+                        <td><a class="btn btn-danger" href="{% url 'TodoList:deleteTodoList' list.todolist.id %}">Delete</a></td>
+                    </tr>    
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-12 text-center">
+            No TodoList
+        </div>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-12">
+            <a class="btn btn-secondary" href="{% url 'TodoList:createTodoList' %}">Add todolist</a>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

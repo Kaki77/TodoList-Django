@@ -1,0 +1,74 @@
+{% extends 'TodoList/base.html' %}
+
+{% block content %}
+<div class="container">
+    {% if list %}
+    <div class="row">
+        <div class="col-12 sub_title">
+            {{list.0.todolist.name}}
+        </div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <thead>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Published Date</th>
+                <th>Last Update Date</th>
+                <th>Finished ?</th>
+                <th></th><th></th><th></th>
+            </thead>
+            <tbody>
+                {% for l in list %}
+                    <tr>
+                        <td>{{l.todoitem.title}}</td>
+                        <td>{{l.todoitem.description}}</td>
+                        <td>{{l.todoitem.pub_date}}</td>
+                        <td>{{l.todoitem.update_date}}</td>
+                        <td>
+                            {% if l.todoitem.finished %}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                                </svg>
+                            {% else %}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
+                                    <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
+                                </svg>
+                            {% endif %}
+                        </td>
+                        <td><a class="btn btn-primary" href="{% url 'TodoList:updateTodoItem' pk_list l.todoitem.id %}">Edit</a></td>
+                        <td><a class="btn btn-danger" href="{% url 'TodoList:deleteTodoItem' pk_list l.todoitem.id %}">Delete</a></td>
+                        <td>
+                            <form action="{% url 'TodoList:toggleFinished' pk_list l.todoitem.id %}" method="POST">
+                                {% csrf_token %}
+                                {% if l.todoitem.finished %}
+                                    <button type=submit class="btn btn-danger">Task is not finished</button>
+                                {% else %}
+                                    <button type=submit class="btn btn-success"> Task is finished</button>     
+                                {% endif %}    
+                            </form>   
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <div class="row">
+            <div class="col-12 text-center">
+                There are no TodoItem
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-12">
+            <a class="btn btn-secondary" href="{% url 'TodoList:addTodoItem' pk_list %}">Add TodoItem</a>
+            <a class="btn btn-secondary" href="{% url 'TodoList:index' %}">Back to TodoList</a>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

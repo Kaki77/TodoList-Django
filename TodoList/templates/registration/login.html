@@ -1,0 +1,47 @@
+{% extends "../TodoList/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    {% if form.errors %}>
+    <div class="row">
+        <div class="col-12 text-center">
+            Your username and password didn't match. Please try again.
+        </div>
+    </div>
+    {% endif %}
+    {% if next %}
+        <div class="row">
+            <div class="col-12 text-center">
+                {% if user.is_authenticated %}
+                    Your account doesn't have access to this page. To proceed,
+                    please login with an account that has access.
+                {% else %}
+                    Please login to see this page.
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-12 col-md-4 offset-md-4">
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                {{form|crispy}}
+                <p class="required_fields">* fields are required</p>
+                <input type="submit" value="Login" class="btn btn-outline-primary">
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-center">
+            {# Assumes you setup the password_reset view in your URLconf #}
+            <a href="{% url 'password_reset' %}">Lost password?</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-center">
+            <a href="{% url 'register' %}">Don't have an account yet ? Register Now !</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

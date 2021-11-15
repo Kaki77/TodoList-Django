@@ -1,0 +1,23 @@
+{% extends '../TodoList/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center fs-2 fw-bold">
+            Register Form
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-4 offset-md-4">
+            <form action="{% url 'register' %}" method='POST'>
+                {% csrf_token %}
+                {{form|crispy}}
+                <p class="required_fields">* fields are required</p>
+                <input type="submit" value="Register" class="btn btn-outline-primary">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
